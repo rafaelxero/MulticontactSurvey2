@@ -1,0 +1,109 @@
+\section{Force Control}
+	\label{sec:force_control}
+	
+	\subsection{Paradigms}
+		\label{sub:paradigms}
+		
+		There are different approaches (or paradigms) to force control that we can find in the
+		literature \cite{DelPrete_PhDThesis2013}:
+		%
+		\begin{itemize}
+			
+			\item \emph{Explicit force control}.
+						This one exploits force feedback to adjust the
+						contact force to a desired value \cite{Volpe_TransAutoControl1993}.
+			
+			\item \emph{Implicit force control}.
+						This one, which without any force feedback, regulates the position of the
+						contact point, while tuning the joint servo gains so as	to give a particular
+						stiffness / admittance to the contact point	\cite{Rocco_Automatica1997}.
+			
+			\item \emph{Impedance control}.
+						Proposed originally by Hogan \cite{Hogan_AmericanCtrlConf1984}.
+						This one consists in the control of the motion of the	manipulator and,
+						in addition, its dynamic behavior in response to external	forces.
+						Based on the observation that all environments can be modeled as
+						\emph{admittances} (i.e. physical systems that accept force inputs
+						and yield motion outputs), Hogan suggested to control the manipulator as
+						an \emph{impedance} (i.e. physical system that accepts motion inputs
+						and yield force outputs).
+						This guarantees that thew two dynamically interacting systems physically
+						complement each other.
+						Different from previous approaches, impedance control does not regulate
+						motion or force directly, but instead it regulates the ratio of force to
+						motion, that is the mechanical impedance \cite{DeShutter_ControlProblemsRobAuto1998}.
+			
+			\item \emph{Hybrid control}.
+						Introduced by Craig and Raibert \cite{Craig_SoftwareApp1979}.
+						This one regulates force and position independently, along orthogonal directions.
+						Any assembly task involving rigid frictionless contacts defines two sets of
+						\emph{natural constraints}: position constraints prevent the robot from moving
+						through the environment, whereas force constraints prevent the application of
+						forces along the tangent directions.
+						These two sets of constraints partition the space into two orthogonal subspaces,
+						which are then controlled according to different criteria
+						\cite{Khatib_RoboticsAuto1987}.
+						
+			\item \emph{Hybrid impedance control}.
+						Introduced by Anderson and Spong \cite{Anderson_JRobticsAuto1988}.
+						This one combines impedance control and hybrid position / force control into one
+						strategy, while allowing for more sophisticated impedances.
+						
+			\item \emph{Parallel control}.
+						Proposed by Chiaverini and Sciavicco \cite{Chiaverini_RoboticsAuto1993}.
+						It consists on superimposing a proportional-derivative position control on a
+						proportional-integral force control.
+						The integral action in the force regulator ensures dominance of the force control
+						over the position control, which is typically desired for safety reasons.
+						
+		\end{itemize}
+		
+	\subsection{Force distribution}
+		\label{sub:distribution}
+		
+		Force control approaches for multiple-chain robotic systems have solved the	force distribution
+		problem by means of a variety of methods, once the equations had been fully	derived
+		\cite{Orin_AdvRobotics1989}.
+		Some of the representative ones, as identified by Orin and Cheng \cite{Orin_AdvRobotics1989} and
+		Chen et al. \cite{Chen_MIRC1999},	are:
+		
+		\begin{enumerate}
+		
+			\item \emph{Linear-Programming (LP) Method}.
+						The problem is formulated as a linear-programming problem, by replacing the
+						friction cone with a piecewise linear pyramid so as to express friction constraints by
+						linear inequalities.
+						However, this method is difficult to be applied to complex systems in real-time, as it leads
+						easily to discontinuous solutions even under smooth changes in constraints
+						\cite{Nahon_TransRoboticsAuto1992}.
+						
+			\item \emph{Gradient Projection Method}.
+						This one is useful for considering unilateral constraints in a cost function whose
+						gradient is projected in the space of free motion as a lowest-priority task
+						\cite{Mansard_TransRobotics2009}.
+						
+			\item \emph{Compact-Dual LP (CDLP) Method}.
+						This one results in a smaller problem size by using the compact-dual linear programming,
+						but it cannot overcome the discontinuous problem \cite{Nahon_TransRoboticsAuto1992}.
+						
+			\item \emph{Quadratic Programming (QP) Method}.
+						It is superior to LP and CDLP in terms
+						of the quality of the solution and also can be implemented in real-time because the time for
+						obtaining a solution does not depend on an initial guess~\cite{Chen_MIRC1999}.
+						
+			\item \emph{Non-Linear Programming (NLP) Method}.
+						NLP can be used when the program can be difficult to solve if the local QP is	a poor estimate
+						of the true nonlinear program \cite{Posa_WAFR2012}.
+						However, it is time consuming and there is no mention about real-time
+						implementation~\cite{Sharma_NUiCONE2011}.
+						
+			\item \emph{Analytical Method}.
+						This one is mainly applied to walking robots.
+						It is characterized by finding a relation among feet forces in order to prevent legs from
+						slipping, and consequently adding equality constraints so that the undetermined force system
+						may be transformed into a determined system after combining inverse dynamic equations with the
+						equality constraints.
+						However, it attempts only to prevent leg slippage, neglecting the other inequality constraints
+						\cite{Chen_MIRC1999}.
+		
+		\end{enumerate}

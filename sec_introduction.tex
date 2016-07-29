@@ -1,0 +1,138 @@
+\section{Introduction}
+	\label{sec:introduction}
+
+	\subsection{Motivation: position control vs. force control}
+		\label{sub:motivation}
+		
+		Robotic control is most frequently accomplished with a \emph{stiff position control} system
+		\cite{Khatib_ICRA2008}, which tries to follow a desired position trajectory considering external
+		forces as disturbances \cite{DelPrete_PhDThesis2013}.
+		This typical controller is realized at the joint level using PD control with high gains.
+		Thus, each joint is treated	independently	and, since the controller cannot account for the dynamics
+		of the system, coupled dynamic effects between joints are ignored and treated as a disturbances.
+		This approach has been well suited in factory automation, where joint control is a dominant
+		paradigm in \emph{industrial robots} \cite{Khatib_ICRA2008}.
+		
+		Similar to industrial robots, \emph{humanoid robots} have been traditionally based on joint
+		position control, which in combination with a stiff and precisely manufactured drive train
+		leads to a high achievable precision \cite{Englsberger_Humanoids2015}.
+		However, this type of control generally exhibits \emph{high impedance}, and the speed at which
+		it will comply to an unknown force is restricted \cite{Stephens_IROS2010}.
+		Furthermore, it is also severely limited in performing advanced robotic tasks, especially in
+		unstructured dynamic complex environments \cite{Khatib_ICRA2008}, where it is important for the
+		robot not only to adapt	quickly to sudden environmental changes or disturbances, especially to
+		unknown external forces	\cite{Hyon_TransRobotics2007}, but also to interact closely with people.
+		On the other hand, robots with \emph{low impedance} joints can comply faster.
+		This is useful, but also makes balance control more important and more difficult \cite{Stephens_IROS2010}.
+		That insufficiency is an important disadvantage for position-based controllers
+		in terms of force	interaction \cite{Hyon_TransRobotics2007}.
+		
+		In a \emph{position-based compliance control} the robot adapts compliantly to external forces by using a
+		force sensor.
+		Such methods however, can deal only with forces via \emph{virtual compliance}; for that reason,
+		time delays are, in principle, unavoidable.
+		Moreover, the controller requires force sensors at every expected contact point.
+		Without them, the robot cannot adapt to unknown external forces.
+		Although it is possible to install force sensors over the whole body,
+		this imparts a heavy computational burden because of the number of contact Jacobians.
+		Also, it is difficult to assign appropriate weights.
+		The best way to treat unknown disturbances and external forces is to transform desired contact
+		(interaction) forces into joint torques directly, even though controlling these joint torques
+		precisely is technically challenging \cite{Hyon_TransRobotics2007}.
+		
+		One alternative approach for addressing this problem(s)	is to use
+		\emph{joint torque sensing and control}	\cite{Khatib_ICRA2008} \cite{Ott_Humanoids2011}.
+		This kind of control has recently attracted increased attention, mainly due	to the fact that
+		it is possible to interact robustly with the environment, as well as exhibit a safe
+		and compliant behavior while interacting with humans (probably the most crucial issue) and
+		in case of self-collisions \cite{Englsberger_Humanoids2015}.
+		
+	\subsection{Humanoids: from balance to multi-contact force control}
+		\label{sub:humanoid_robots}
+		
+		Research and development of humanoid robots started in 1973 with the development of WABOT-1
+		in Waseda	University, and the first successful walking humanoid system presented by Honda in
+		1995 \cite{Park_PhDThesis2006}.
+		Since then, the research had mainly focused on the hardware design and the realization of some
+		basic	motions such as walking and balancing \cite{Harada_ICRA2003}.	
+		
+		Humanoid balance depends critically on controlling the linear and angular momentum of the	system,
+		quantities that can be directly controlled by contact forces \cite{Stephens_IROS2010}.
+		In general, a \emph{contact} can be seen as a continuum of infinitesimal forces acting on
+		the surface of a rigid body, being the effect of contact forces represented with an
+		equivalent wrench, composed by a three-dimensional force and a three-dimensional torque.
+		\cite{Nori_FrontRobAI2015}.
+		
+		Given a robot with stiff joint position control and a known environment, the most common approach
+		to balance is to generate a stable trajectory of the COM and then track it using inverse kinematics
+		(IK) \cite{Stephens_IROS2010}.
+		These trajectories can be modified online to produce whole body balance in the presence of small
+		disturbances \cite{Sugihara_IROS2002}.
+		For environments with small uncertainty or small disturbances, the inverse kinematics can be modified
+		to directly control the contact forces using force feedback, a method known as Inverse Kinematics
+		Force Control (IKFC) \cite{Fujimoto_ICRA1996}.
+		
+		Since the kinematical structure of a humanoid robot is similar to that of a human, a humanoid
+		robot	is expected to work in the same environment as the human.
+		Then, to accomplish the required tasks under such an environment, it should be considered that
+		a	humanoid robot manipulates an object by means of a cooperation between arms and legs
+		\cite{Harada_ICRA2003}; that is, due to multi-contact interactions.
+		
+		One of the first works considering the arm / leg coordination of a humanoid robot is the one of
+		Inoue et al. \cite{Inoue_ICRA2000}, which determined the posture of a humanoid robot taking the
+		manipulability of the arms into consideration \cite{Harada_IROS2003}.
+		In this work, an impedance control was implemented to make the arm tips always follow their desired
+		position, while considering	an external force	being applied \cite{Inoue_ICRA2000}.
+		
+		Forces were also considered within a force-balanced biped robot (not for multi-contact control)
+		by Pratt et al. \cite{Pratt_IJRR2001}
+		This work introduces the Virtual Model Control (VMC), a motion control framework that uses
+		simulations of virtual components to create virtual forces generated when the virtual components
+		interact with a robotic system.
+		This is the simplest method that only uses a kinematic model \cite{Stephens_IROS2010}.
+		
+		The first research considering a pushing manipulation by a humanoid robot
+		(and the influence of	the corresponding external forces in a multi-contact scenario)
+		was reported by Harada et al. \cite{Harada_ICRA2003}
+		These authors considered an extension to the Zero Moment Point (ZMP) dynamic-evaluation
+		criterion, defined as the Generalized Zero Moment Point (GZMP), in order to enable generalized
+		multicontact-locomotion behaviors.
+		This extension was later used by them \cite{Harada_IROS2003} for arm / leg coordination.
+		
+		A formulation of multi-contact compliant motion control was, in our knowledge, first addressed
+		by Park et al. \cite{Park_ICRA2004}
+		This one was based on the contact model described by Featherstone et al. \cite{Featherstone_ICRA1999}
+		together with the operational space formalism introduced by Khatib \cite{Khatib_RoboticsAuto1987},
+		which made it possible to use force control to attain compliant contacts.
+		Although the target of this work was not a humanoid robot, it addressed the case in which one
+		link of a manipulator	was making contact with the environment in more than one point, providing
+		the basics for future humanoid-related research in multi-contact compliant motion control.
+		
+	\subsection{Challenges in real-time force control of humanoid robots}
+		\label{sub:challenges}
+		
+		The real-time multi-contact force control of a humanoid robot involves the optimal distribution of an
+		undetermined force system subjected to physical constraints \cite{Chen_MIRC1999}
+		\cite{Nahon_TransRoboticsAuto1992}.
+		\emph{Force distribution} is the inverse dynamics problem for multiple-chain systems of links (arms,
+		legs, or fingers) supporting a load, body or object, in which the motion is completely specified and
+		the internal forces / torques to effect	this motion are to be determined \cite{Orin_AdvRobotics1989}.
+		However, the solution to these \emph{inverse dynamics} equations of a multi-legged system is not unique
+		(it is an ill-posedness problem),	but it can be chosen in an optimal manner by introducing an
+		objective function \cite{Hyon_TransRobotics2007} \cite{Chen_MIRC1999}.
+		
+		Physical interaction with the environment definitely represents a crucial issue:
+		while we can estimate a dynamical model of the robot, it is much harder to retrieve a model of the
+		\emph{physical constraints} (the \emph{contact dynamics}), for which simplified models are usually
+		used \cite{DelPrete_PhDThesis2013}.
+		However, even though some of these ones can be simplified and represented by equality constraints,
+		many more can only be represented mathematically as inequalities due to the nature of the
+		contacts involved, i.e., normal contact forces between the feet and the ground cannot be negative,
+		and, as supporting feet should not slip, the magnitude of the tangential force at each foot cannot
+		exceed the maximum force of	static friction.
+		In addition, the torque of each joint must lie within the allowed range.
+		Therefore, force distribution requires to find a solution for a nonlinear programming problem
+		with inequality constraints, a problem that should be solved in real-time, although it is difficult
+		to do so due to the computational cost \cite{Chen_MIRC1999}.
+		This is because the results of this force distribution are used, after an appropriate force-to-torque
+		transformation, to provide torque set points for the actuators \cite{Nahon_TransRoboticsAuto1992}.

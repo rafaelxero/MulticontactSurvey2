@@ -1,0 +1,96 @@
+\section{Areas of inspiration}
+	\label{sec:inspiration}
+	
+	Force distribution due to multi-contact interactions in \emph{multi-legged walking robots} has been
+	addressed since the early 80's.
+	Then, research began to focus on modeling multi-grasp behaviors in \emph{dexterous mechanical hands}
+	and the associated internal forces acting between \emph{multiple cooperating manipulators};
+	that is, to a number of simple closed	multiple-chain robotic systems \cite{Orin_AdvRobotics1989}
+	\cite{Nahon_TransRoboticsAuto1992} \cite{Chen_MIRC1999} \cite{Sentis_TransRobotics2010}.
+	These fields provided the inspiration and tools that were later used to implement	multi-contact force
+	control in humanoid robots.
+	
+	\subsection{Multi-legged walking robots}
+		\label{sub:walking_robots}
+		
+		Some of the earliest works in the area of multilegged walking robots was the one of Orin and Oh
+		\cite{Orin_DSMC1981} in 1981, where a solution that	optimized a weighted combination of energy
+		consumption and load balance was used on simple closed-chain mechanisms in which a single member,
+		called the reference member, is supported by several chains.
+		While the model included all three types of robotics systems of interest, it was applied to	multilegged
+		vehicles only, specifically to drive a hexapod locomotion vehicle.
+		Hard point contact with friction was used to model the foot / support-surface interaction.
+		Joint actuator limits and leg dynamic effects were also included in the formulation.
+		However, the method used to include these was computationally inefficient.
+		The above statement was done by Orin and Chen \cite{Orin_AdvRobotics1989}, which in turn presented a
+		computationally efficient formulation of the force distribution problem which included the dynamic
+		effects of the chains and physical limits on their actuators, as well as used a contact
+		modeling relatively general and capable of handling hard point contact, soft finger contact,
+		or rigid contact with an irregular-shaped	object or with uneven terrain.
+		
+		Later, at the beginning of the 90's, Klein and Kittivatcharapong \cite{Klein_RoboticsAuto1990}
+		proposed to solve the force distribution problem for the limbs of a legged vehicle with friction
+		cone constraints, while Kumar and Waldron \cite{Kumar_MechDesign1990} addressed the problem of the
+		appropriate distribution of forces between the legs of a legged locomotion system for walking
+		on uneven terrain.
+		Also, Gardner and Srinivasan \cite{Gardner_DSMC1990} solved the force distribution
+		problem in a closed form for a walking machine such that it would be computationally simpler,
+		and after Gardner \cite{Gardner_DSMC1991} extended the previous work to allow for
+		arbitrarily oriented surface normals at the point of contact between the feet and the ground.
+		
+		At the end of the 90's Liu and Wen \cite{LiuH_RoboticSystems1997} focused on preventing leg
+		slippage by means of an efficient approach to optimize the foot force distribution on a quadruped
+		walking vehicle.
+		Later, Chen et al. \cite{Chen_MIRC1999} developed a real-time force control for a
+		quadruped robot by transforming the friction constraints from nonlinear inequalities into a
+		combination of linear	equalities and linear inequalities reducing the problem size, and
+		Hung et al. \cite{Hung_SysManCyb2000} presented a systematic formulation of the force
+		distribution equations for a general tree-structured robot mechanism.
+		
+	\subsection{Multiple cooperating manipulators}
+		\label{sub:cooperating_manipulators}
+	
+		In the field of cooperation (or coordination) of multiple manipulators some representative works
+		that date from the 90's also made use of optimal force distribution.
+		For example, Shin and Chung \cite{Shin_IROS1991} proposed a method called weak point minimization
+		applicable to weakly connected assembly parts and weak joints in cooperating multiple robots.
+		Choi et al. \cite{Choi_ICRA1992} found an optimal load distribution for two cooperating robots by
+		utilizing a force ellipsoid, a concept that was also used together with the manipulability ellipsoid
+		by them later \cite{Choi_Robotica1993}.
+		Also, Kown and Lee \cite{Kwon_SICE1996} proposed a compact dual method for multiple cooperating
+		robots, and after they \cite{Kwon_IntellRobotSys1998} used quadratic constraints to reduce their
+		number and improve efficiency.
+		Finally, Featherstone et al. \cite{Featherstone_ICRA1999} presented a general first-order kinematic
+		model of	frictionless rigid-body contact for use in hybrid force / motion control that made it
+		possible to include multiple points of contact.
+		
+	\subsection{Dexterous mechanical hands}
+		\label{sub:mechanical_hands}
+		
+		As for grasping with dexterous mechanical hands, there are also some representative works published
+		also around the 90's.
+		Cheng and Orin \cite{Cheng_ICRA1989} \cite{Cheng_TransRoboticsAuto1990} used the duality theory of
+		linear programming to obtain the general solution of linear equality constraints and applied it to
+		a grasping system, and later they \cite{Cheng_TransSysManCyb1991a} \cite{Cheng_TransSysManCyb1991b}
+		proposed a computationally efficient formulation applicable to multiple-chain robotic systems.
+		Mukherjee and Waldron \cite{Mukherjee_MechDesign1992} proposed to minimize the maximum value of
+		the friction angle at the points of contact of a three-fingered hand.
+		Later, Chen \cite{Chen_ICRA1995} analyzed the mechanics of grasping general solid objects under a
+		frictional point contact model and proposed to balance disturbances by means of a particular set
+		of internal forces, while Cheng \cite{Cheng_SysManCyb1997} proposed an efficient method for obtaining
+		the general solution for the force balance equations with hard point contacts.
+		Also, Liu \cite{LiuY_TransRoboticsAuto1999} formalized a qualitative test of 3D frictional
+		form-closure grasps, and Al-Gallaf \cite{AlGallaf_RobAutoSys2006} presented a novel neural
+		network for dexterous hand-grasping inverse kinematics mapping used in force optimization.
+		
+	\subsection{Non-specialized field of application}
+		\label{sub:non_specialized}
+		
+		Some works were not mainly focused on one applicable field of the optimal force distribution,
+		but on its application to closed kinematic chains, comprising the above stated fields.
+		For example, Nahon and Angeles \cite{Nahon_TransRoboticsAuto1992} focused on solving the
+		optimization problem with equality and inequality constraints in order to achieve real-time
+		control of cooperating manipulators, mechanical hands and walking machines.
+		In contrast, Sreenivasan et al. \cite{Sreenivasan_MechDesign1996} used the redundancy in actuation
+		of multifingered hands and walking vehicles to optimize the force distribution, but the developed
+		algorithm was not suited for real-time implementation, just for offline planning.

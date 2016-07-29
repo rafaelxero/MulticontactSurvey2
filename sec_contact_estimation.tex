@@ -1,0 +1,39 @@
+\section{Contact Force Estimation}
+	\label{sec:contact_estimation}
+	
+	In most robotics applications, robots come into contact with the environment just with
+	their end-effectors.
+	Nevertheless, robots could benefit from making contacts with other parts of their bodies,
+	in the same way humans do.
+	This lack is mainly due to the fact that nowadays most robots do not have an artificial skin
+	that allows them to detect and localize contacts.
+	Either joint torque sensors or 6 axis Force/Torque (F/T) sensors are usually used to provide
+	contact	feed-back to robots.
+	However, with these sensors it is not possible to retrieve the exact contact location,
+	unless we make strong assumptions about the contact
+	(e.g. zero moment applied, known force direction).
+	Moreover, the wrench (i.e. force and moment) that is applied at the contact point cannot be
+	measured, unless the contact location is somewhat known \cite{DelPrete_PhDThesis2013}.
+	
+	Within this context, Sentis et al. \cite{Sentis_IROS2009} presented a theoretical framework
+	to model and control robots that are subject to multiple contacts, but the authors didn't
+	discuss how to localize the contacts and estimate the	contact forces / pressures.
+	On the other hand, Park and Khatib \cite{Park_ICRA2005} presented a compliant motion control
+	framework for multiple contacts and they tested it with a PUMA560 manipulator.
+	In the experiments the geometry and the stiffness of the environment were assumed to be known
+	a priory in order to compute the contact points and the contact forces.
+	
+	A probabilistic approach was later proposed by Petrovskaya et al. \cite{Petrovskaya_ICRA2007},
+	in which the authors used	an active sensing strategy to estimate at the same time the shape of
+	the robot and the contact point.
+	Nevertheless, they tested the method only with extremely simple geometries of robot and
+	environment (the environment was a point and the robot link was a line) and the authors said
+	that,	for more complex geometries, more sophisticated active exploration strategies would likely
+	be needed \cite{DelPrete_PhDThesis2013}.
+	
+	When both tactile sensors and F/T sensors are available, it is possible to estimate contact
+	locations and	contact wrenches, and so implement reliable contact force control.
+	This was the approach taken by Del Prete \cite{DelPrete_PhDThesis2013} who implemented the
+	corresponding method on the iCub humanoid	robot \cite{Metta_PerMIS2008}, an open robotic
+	platform designed for studying embodied cognition featuring 6-axis F/T sensors and a distributed
+	sensorized skin.

@@ -1,0 +1,144 @@
+\section{Remarks}
+	\label{sec:remarks}
+	
+	Many control frameworks have then been formulated in the last decade, some of them clearly
+	representative, e.g. Inverse-Kinematics Force Control (IKFC) \cite{Fujimoto_ICRA1996},
+	Virtual Model Control (VMC) \cite{Pratt_IJRR2001}, Operational Space Based Control
+	(OSBC) \cite{Sentis_MotionPlan2010}, Passivity-Based Balance Control (PBBC)
+	\cite{Hyon_TransRobotics2007}, Floating Body Inverse Dynamics (FBID) \cite{Mistry_ICRA2010},
+	Dynamic Balance Force Control (DBFC) \cite{Stephens_IROS2010}, Model Preview Control (MPC)
+	\cite{Nagasaka_RobotSymp2012}, Task Space Inverse Dynamics (TSID) \cite{DelPrete_PhDThesis2013},
+	Momentum-Based Control (MBC) \cite{Hopkins_IJHR2016}, among others.
+	
+	Each of these frameworks present particular features \cite{DelPrete_PhDThesis2013}, such as:
+	specification of inequality constraints \cite{Mansard_TransRobotics2009} \cite{Saab_ICRA2011},
+	control of underactuated systems \cite{DeLasa_IROS2009} \cite{Mistry_RSS2011}, low computational
+	cost \cite{Escande_ICRA2010} \cite{Mansard_ICRA2012}, etc., but in general they pursue one
+	common objective: to create complex behaviors, for which humanoid robots need to simultaneously
+	accomplish multiple control objectives.
+	For instance, locomotion, manipulation, balance, and posture stance need to be simultaneously
+	controlled \cite{Sentis_PhDThesis2007}.
+	
+	It is possible to identify two different approaches to multi-task management among the described
+	frameworks \cite{DelPrete_PhDThesis2013}:
+	%
+	\begin{enumerate}
+		\item The \emph{error minimization} approach.
+					This one minimizes the error of each task, under the constraint of not conflicting
+					with higher priority tasks.
+					Unfortunately, it suffers from algorithmic singularities, namely singularities that
+					are due to conflicts between tasks.
+					
+		\item The \emph{null-space projection} approach.
+					This one is somewhat simpler as it only projects tasks into the null-space of the
+					constraints.
+					However, it has a drawback, as it does not ensure that a	task is achieved,
+					even if it is not in conflict with any task with higher priority.
+		
+	\end{enumerate}
+		
+	Despite the drawbacks of the null-space projection approach sometimes it has been preferred
+	over the error minimization approach \cite{DelPrete_PhDThesis2013}, as it was done by
+	Khatib	\cite{Khatib_IJRR1995}, Chiaverini \cite{Chiaverini_RoboticsAuto1997},
+	Peters et al. \cite{Peters_AutoRobots2008}, or Mistry and Righetti \cite{Mistry_RSS2011}. 
+	This is because
+	%
+	\begin{inparaenum}
+		\item it is older and hence more popular in the robotics community,
+		\item it is simpler to understand and to implement, and
+		\item it does not suffer from algorithmic singularities.
+	\end{inparaenum}
+	%
+	However, it is not optimal \cite{DelPrete_PhDThesis2013}.
+		
+	On the other hand, if the robot has to perform two or more tasks with different priorities,
+	then the error minimization approach has to be taken to get optimal results.
+	Many frameworks for multi-task control that follow the principles of this approach have been
+	presented.
+	Some examples are the works of Siciliano and Slotine \cite{Siciliano_AdvRobotics1991},
+	Jeong and Chang \cite{Jeong_IROS2009} or Saab et al. \cite{Saab_ICRA2011}.
+	
+	Even the work of Khatib	\cite{Khatib_IJRR1995}, which in its original form used the null-space
+	projection approach, has been extended later to the error minimization approach in the works
+	of Khatib et al. \cite{Khatib_IJHR2004}, or Sentis and Khatib \cite{Sentis_ICRA2006}, as it
+	was interpreted by Del Prete \cite{DelPrete_PhDThesis2013}.
+		
+	In a general walking robot, the number of constraints is larger than that of a finger system.
+	Therefore, it may be difficult to implement this method in real-time without reducing the
+	problem size \cite{Kwon_IntellRobotSys1998}.
+	This reduction of the problem size represents an approach that can improve the performance
+	of this method, as proposed by Chen et al. \cite{Chen_MIRC1999}.
+	
+	The use of Quadratic Programming (QP) in online control algorithms has recently seen a sudden
+	rise in popularity,	at least in part due to the availability of fast and reliable QP solvers
+	and more powerful CPUs \cite{Koolen_IJHR2016}.
+	An early example of such QP-based control schemes is the work of Kudoh et al. \cite{Kudoh_IROS2002}.
+	More recent approaches include the work of Stephens and Atkeson \cite{Stephens_IROS2010},
+	Saab et al. \cite{Saab_TransRobotics2013}, Kuindersma et al. \cite{Kuindersma_ICRA2014},
+	Herzog et al. \cite{Herzog_IROS2014}, and Feng et al. \cite{Feng_Humanoids2014}
+	
+	Several researchers have proposed convex optimization techniques to solve the inverse dynamics and
+	whole body control problem subject to multi-contact constraints, e.g. De Lasa and Hertzmann
+	\cite{DeLasa_IROS2009}, Lee and Goswami \cite{LeeS_IROS2010}, Koolen et al. \cite{Koolen_Humanoids2013},
+	Wensing and Orin \cite{Wensing_ICRA2013}, Feng et al. \cite{Feng_Humanoids2014}, Saab et al.
+	\cite{Saab_TransRobotics2013} and Kuindersma et al. \cite{Kuindersma_ICRA2014}
+	These approaches compute joint torque set-points that minimize tracking errors for multiple motion
+	tasks including momentum rates of change, end-effector accelerations, and joint accelerations relating
+	to whole-body motions.
+	In general, these formulations can serve as the basis for any locomotion, manipulation, or generic
+	multi-contact behavior \cite{Hopkins_ICRA2015}.
+	With respect to this multi-contact behavior many works in the literature have only focused on
+	controlling forces exerted at the	end-effectors, namely the hands for manipulation tasks and
+	the feet for walking.
+	Restricting contacts to end-effectors is a quite strong assumption, since
+	%
+	\begin{inparaenum}
+		\item uncertainties in the environment may result in unplanned contacts at other body parts,
+					and
+		\item contacts at other body parts may be necessary to perform certain tasks
+					\cite{DelPrete_PhDThesis2013}.
+	\end{inparaenum}
+	
+	Some works do not make any assumption about the contact location, trying to control the joint
+	torques	rather than the contact forces.
+	This approach ensures bounded contact forces, but do not allow a real contact force control
+	\cite{DelPrete_PhDThesis2013}.
+	
+	Various theoretical frameworks for modeling and control of robots that are subject to multiple
+	contacts have been proposed (e.g. Park and Khatib \cite{Park_ICRA2006}, Sentis et al.
+	\cite{Sentis_IROS2009} and Righetti et al. \cite{Righetti_ICRA2011}), but they have not
+	gone beyond end-effector contacts when tested	on real platforms \cite{DelPrete_PhDThesis2013}.
+
+	One of the first schemes for model-based torque control was due to Khatib
+	\cite{Khatib_RoboticsAuto1987}, later extended and applied to humanoid robots.
+	Such a framework allowed the specification of (a hierarchy of) multiple motion tasks,
+	and could handle the case of multiple non-coplanar ground contacts.
+	Then, joint torques were essentially found using unconstrained least squares (pseudo-inverse) techniques
+	\cite{DelPrete_PhDThesis2013}.
+	Examples of this type of scheme include the work of Hyon et al. \cite{Hyon_TransRobotics2007},
+	Righetti et al. \cite{Righetti_CLAWAR2010} and Mistry et al. \cite{Mistry_ICRA2010}
+	
+	A consequence of this unconstrained optimization is that limitations due to unilateral ground contact
+	and friction cannot be taken into account directly \cite{Koolen_IJHR2016}.
+	Also, the control laws based on the assumption of no motion along the constrained directions can
+	generate constraint forces that are not physically feasible.
+	Righetti et al.	\cite{Righetti_Humanoids2011} tried to solve this issue by using the constraint
+	redundancy to minimize a quadratic cost in the constraint forces, but still it couldn't guarantee
+	their physical consistency \cite{DelPrete_PhDThesis2013}.
+	
+	A safer approach was to include inequality constraints into the control problem, as done by Saab et al.
+	\cite{Saab_ICRA2011} \cite{Saab_IROS2011} or later by Righetti and Schaal	\cite{Righetti_Humanoids2012},
+	so that it allowed for unilateral contact constraints \cite{DelPrete_PhDThesis2013}.
+	This consideration naturally led to the use of constrained optimization	techniques.
+	But, even though the friction cone constraints related to Coulomb friction were second-order cone
+	constraints, these second-order cones were often approximated using linear constraints, reducing the
+	problem of finding joint torques given motion tasks to a quadratic program (QP) \cite{Koolen_IJHR2016}.
+	This is computationally more expensive than a solution based on pseudo-inverses; however, it is
+	claimed that the computation time of the controller can be still less than 1 ms, and so perfectly
+	suitable for fast torque control loop \cite{DelPrete_PhDThesis2013}.
+	
+	One limitation of works like the one of Del Prete \cite{DelPrete_PhDThesis2013} is that their control
+	framework didn't consider joint limits and motor torque limits.
+	These limits can be easily included in the control problem as inequality constraints, using the QP
+	solver to compute the control torques \cite{DelPrete_PhDThesis2013}, as it is done by Hopkins et al.
+	\cite{Hopkins_IJHR2016} and \cite{Koolen_IJHR2016}.

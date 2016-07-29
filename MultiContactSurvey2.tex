@@ -1,0 +1,66 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{graphicx}
+
+\usepackage[tbtags]{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{paralist}
+
+\usepackage{url}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand*{\R}[1]{\mathbb{R}^{#1}}
+
+\def\figurename{Fig.}
+
+\begin{document}
+
+	\title{\LARGE \bf Research Survey on Multi-Contact Force Control}
+
+	\author{
+		
+		\IEEEauthorblockN{
+			Rafael CISNEROS,
+			Mitsuharu MORISAWA,
+			Fumio KANEHIRO} \\
+			
+		\IEEEauthorblockA{
+			Humanoid Research Group, Intelligent Systems Institute, \\
+			National Institute of Advanced Industrial Science and Technology (AIST), Japan}}
+  
+	\maketitle
+
+	\thispagestyle{empty}
+	\pagestyle{empty}
+	
+	\begin{abstract}
+		Recently, there is a growing interest with respect to the use of humanoid robots in activities
+		involving the interaction with unstructured environments and their ability to perform more
+		complex tasks.
+		In order to achieve that, it is required to consider that the humanoid robot will make contact
+		with this environment not only by using its feet, but by using its hands or any other point on
+		its body, and to do it compliantly for its own safety and the safety of the people that it is
+		expected to interact with; that is, to exhibit a multi-contact compliant behavior.
+		This paper surveys the state of the art in whole-body multi-contact force control, by means
+		of comparing the different technologies proposed by the robotics research	community.
+	\end{abstract}
+	
+	\input{sec_introduction}
+
+	\input{sec_inspiration}
+	
+	\input{sec_contact_estimation}
+
+	\input{sec_force_control}
+	
+	\input{sec_whole_body}
+	
+	\input{sec_remarks}
+	
+	\bibliographystyle{plain}
+	\bibliography{MultiContactSurvey}
+	
+\end{document}
