@@ -48,7 +48,7 @@
 	and control	\cite{Khatib_IJHR2004}.
 	Also, it allowed to Park and Khatib \cite{Park_ICRA2006} \cite{Park_Robotica2008} to propose a contact
 	consistent control framework.
-	
+		
 	By using the framework of Khatib et al. \cite{Khatib_IJHR2004}, it was also possible to define multiple
 	prioritized control objectives and simultaneously control them by providing decoupled closed-loop
 	dynamics within their	priority level as explained by Sentis and Khatib \cite{Sentis_IJHR2004}
@@ -67,10 +67,12 @@
 	However, the multi-level task space controller for force-controllable humanoids proposed by
 	Sentis and Khatib \cite{Sentis_ICRA2006} didn't mention how to deal with dynamic balancing
 	nor walking.
-	These topics were addressed (for force-controllable humanoid robots) by the work of Hyon et al.
-	\cite{Hyon_IROS2006} \cite{Hyon_ICRA2007} \cite{Hyon_TransRobotics2007}, where a passivity-based
-	hierarchical full-body motion controller capable of	rejecting disturbances was proposed,
-	and successfully implemented in a full-sized multi-dof humanoid robot.
+	Towards this topic, Hauser et al. \cite{Hauser_Humanoids2005} in 2005 proposed a probabilistic,
+	sample-based approach for realizing a balanced non-gaited motion planner, in simulation.
+	Dynamic balancing and walking were also addressed (for force-controllable humanoid robots) by the
+	work of Hyon et al. \cite{Hyon_IROS2006} \cite{Hyon_ICRA2007} \cite{Hyon_TransRobotics2007},
+	where a passivity-based hierarchical full-body motion controller capable of	rejecting disturbances
+	was proposed, and successfully implemented in a full-sized multi-dof humanoid robot.
 	This approach, named as \emph{Pasivity-Based Balance Control} (PBBC), was based in the concept of
 	gravity compensation, also proposed by them	\cite{Hyon_Humanoids2006}, which makes the closed-loop
 	system passive with respect to	additional inputs and external forces when introduced at the lowest
@@ -116,9 +118,9 @@
 	Righetti et al. \cite{Righetti_CLAWAR2010}
 	
 	Another model-based method known as the \emph{Dynamic Balance Force Control} (DBFC) was also introduced
-	in 2010 by Stephens and Atkeson \cite{Stephens_IROS2010}, with the purpose of determining full body
-	joint torques based on desired COM motion and contact forces for compliant humanoid robots
-	\cite{Stephens_IROS2010}.
+	in 2010 by Stephens and Atkeson \cite{Stephens_IROS2010} \cite{Stephens_PhDThesis2011}, with the purpose
+	of determining full body joint torques based on desired COM motion and contact forces for compliant
+	humanoid robots \cite{Stephens_IROS2010}.
 	This one uses contact force optimization for balancing the humanoid robot based on the CoM dynamics,
 	by combining it with virtual task forces.
 	For the mapping of the contact forces to the joint torques, the non-linear full multi-body dynamics are
@@ -129,14 +131,25 @@
 	Furthermore, because of the force-based nature of this controller, it can also be modified for the
 	compensation of non-contact forces using VMC-like controls \cite{Stephens_IROS2010}.
 	
-	In 2011, Ott et al. \cite{Ott_Humanoids2011} proposed a balancing controller able to withstand external
-	perturbations by distributing the required forces among predefined contact points via a	constrained
-	optimization problem, in a similar way as proposed by Hyon et al. \cite{Hyon_TransRobotics2007}
-	The approach reused a formulation coming from the field of robot grasping to create a controller that
+	Contact dynamics, being commonly formulated as a \emph{Linear Complementary Problem} (LCP), are also
+	inaccurate due to the pyramid approximations to the friction cone, and the inefficient lack of convexity
+	coupled with a large number of auxiliary variables.
+	Towards to that, in 2010 Todorov \cite{Todorov_ICRA2010} proposed a new approach known as
+	\emph{Implicit Complementarity}.
+	Instead of treating contact velocities and forces as independent variables, they were expressed as
+	functions of a minimal set of unconstrained variables \cite{Todorov_ICRA2010}.
+	Later, in 2011 the same author \cite{Todorov_ICRA2011} proposed the first model of contact dynamics
+	defined in both the forward and inverse directions, as a solution of a convex optimization problem
+	\cite{Todorov_ICRA2011}.
+	
+	Also in 2011, Ott et al. \cite{Ott_Humanoids2011} proposed a balancing controller able to withstand
+	external perturbations by distributing the required forces among predefined contact points via a
+	constrained optimization problem, in a similar way as proposed by Hyon et al. \cite{Hyon_TransRobotics2007}
+	The approach reused a formulation coming from the field of grasping to create a controller that
 	keeps both the position and orientation of the robot \cite{Ott_Humanoids2011}.
 	This idea was later used by Henze et al. \cite{Henze_IROS2014} which proposed an approach to whole-body
 	control for balancing and posture	stabilization of humanoid robots utilizing an optimization of contact
-	forces in combination with Model Predictive Control \cite{Henze_IROS2014}.
+	forces in combination with Model Predictive Control~\cite{Henze_IROS2014}.
 	
 	More recent approaches have explored the idea of simplifying the system dynamic equations by performing
 	suitable projections onto the null-space of the contact forces, as proposed by Righetti et al.
@@ -180,7 +193,9 @@
 	In 2012, Righetti and Schaal \cite{Righetti_Humanoids2012} proposed an inverse dynamics controller for
 	a humanoid robot that exploited torque redundancy to minimize any combination of linear and quadratic
 	costs in the contact forces and commands.
-	Also, Nagasaka et al. \cite{Nagasaka_RobotSymp2012} proposed an elegant formulation of
+	Mordatch et al. \cite{Mordatch_SIGGRAPH2012} introduced the \emph{Contact-Invariant Optimization}
+	(CIO) method to enable simultaneous optimization of contacts and behaviors \cite{Chung_ICRA2015}.
+	Nagasaka et al. \cite{Nagasaka_RobotSymp2012} proposed an elegant formulation of
 	\emph{Model Preview Control} (MPC) using the CoM to stabilize a humanoid robot even when it
 	operates keeping contact with multiple non-coplanar planes \cite{Audren_IROS2014}
 	\cite{Nagasaka_RobotSymp2012}.
@@ -195,9 +210,8 @@
 	Peters et al. \cite{Peters_AutoRobots2008}, Saab et al. \cite{Saab_ICRA2011}, and Sentis and Khatib
 	\cite{Sentis_IJHR2005},	sharing with them most of its limitations \cite{DelPrete_PhDThesis2013}.
 	One of the main flaws of the TSID method is that it does not take into account any of the uncertainties
-	affecting the humanoid robots: poor torque tracking, sensor noises, delays and model uncertainties.
-	As a consequence, the resulting control trajectories may be feasible for the ideal system,
-	but not for	the real one.
+	affecting humanoid robots: poor torque tracking, sensor noises, delays and model uncertainties.
+	As a consequence, the control trajectories may be feasible for the ideal system, but not for the real one.
 	In this context, Del Prete and Mansard \cite{DelPrete_RSS2015} proposed to improve the robustness of
 	TSID by modeling uncertainties in the joint torques as additive white random noise.
 	This resulted in a stochastic optimization problem, in which they could maximize the probability
@@ -216,6 +230,15 @@
 	The \emph{gravitational stiffness}, a physical quantity that is closely related to the effort,
 	is controlled instead, as suggested by him \cite{Moro_Humanoids2015} in a previous work.
 	Whenever the gravitational stiffness is maximized, the effort is minimized \cite{Moro_IJHR2016}.
+	
+	Meanwhile, Posa et al. \cite{Posa_HSCC2013} presented a method for applying \emph{Sums-Of-Squares} (SOS)
+	verification to rigid bodies with Coulomb friction undergoing discontinuous, inelastic impact events.
+	This method explicitly generates Lyapunove certificates for stability, positive invariance, and
+	reachability over admissible (non-penetrating) states and contact forces.
+	Specifically, this approach addressed discontinuities and non-smoothness arising from impacts and friction 
+	by using the framework of \emph{Measure Differential Inclusions} (MDI) \cite{Posa_HSCC2013}.
+	This work was later improved by them \cite{Posa_TransAutoControl2016} separating the effects of contact
+	forces and introducing control design \cite{Posa_TransAutoControl2016}.
 	
 	The implementation of hierarchical inverse dynamics controllers based on cascades of quadratic programs
 	is not easy as model inaccuracies and real-time computation requirements can be problematic.
@@ -241,6 +264,8 @@
 	notorious.
 	Caron et al. \cite{Caron_RSS2015} proposed the use of a \emph{Gravito-Inertial Wrench Cone} (GIWC)
 	as a general multi-contact stability cirterion; that is, a ``ZMP for non-coplanar contacts''.
+	Dietrich et al. \cite{Dietrich_IJRR2015} provided an overview and comparison of practical null space
+	projections for torque control as a survey paper.
 	Farnioli et al. \cite{Farnioli_ICRA2015} presented a general framework for the quasi-static analysis
 	of whole-body loco-manipulation problems.
 	This one made use of the \emph{Fundamental Loco-Manipulation Matrix} (FLMM) and its canonical form
@@ -266,8 +291,8 @@
 	Sherikov et al. \cite{Sherikov_Humanoids2015} introduced a strict prioritization in contact force
 	distribution, to reflect situations when an application of certain contact forces should be avoided
 	as much as possible, for example, due to a fragility of the support.
-	The controller is similar to a previous work also proposed by them \cite{Sherikov_Humanoids2014}
-	which had considered a flat ground, improving it to deal with multiple non-coplanar contacts
+	The controller is similar to a previous work of them \cite{Sherikov_Humanoids2014}
+	which had considered flat ground, improving to allow multiple non-coplanar contacts
 	\cite{Sherikov_Humanoids2015}.
 	
 	Also in 2015, and inspired by Koolen et al. \cite{Koolen_Humanoids2013} and Herzog et al.
@@ -287,18 +312,17 @@
 	estimates	\cite{Hopkins_ICRA2015}.
 	This work was later extended by them \cite{Hopkins_IJHR2016} to include additional material related
 	to the low-level control and state estimation implementation for the THOR humanoid as well as
-	experimental results and analyssis related to locomotion on grass and gravel.
+	experimental results related to locomotion on grass and gravel.
 	
 	In 2016, Koolen et al. \cite{Koolen_IJHR2016} presented a momentum-based torque control framework for
-	floating-base robots and its application to the Atlas humanoid robot.
+	floating-base robots and its application to the Atlas robot.
 	This one was summarily introduced by them \cite{Koolen_Humanoids2013} in a previous work.
 	It exploits the fact that the rate of change of whole-body \emph{centroidal momentum}
-	is both affine in the joint acceleration vector and linear in the external wrenches applied to the
-	robot \cite{Orin_IROS2008}.
+	is both affine in the joint acceleration vector and linear in the applied external wrenches
+	\cite{Orin_IROS2008}.
 	This fact is used to formulate a compact quadratic program, solved at every control time step, which
 	reconciles motion tasks in the form of constraints on the joint acceleration vector with the available
-	contacts between the robot and its environment in the form of unilateral contacts of force-limited
-	grasps.
+	unilateral contacts between the robot and the environment.
 	Contact forces at unilateral contacts are constrained to remain within conservative polyhedral
 	approximations of the expected friction cones \cite{Koolen_IJHR2016}.
 	
@@ -325,6 +349,28 @@
 	This approach presented improvements in terms of its generality, compactness, and efficiency in
 	comparison to previous specialized algorithms~\cite{Wensing_IJHR2016} and expanded previous
 	works developed by them \cite{Wensing_ICRA2013} \cite{Wensing_IJHR2013}.
+	
+	Several other works were also presented in 2016.
+	Aghili and Su \cite{Aghili_ICRA2016} extended a previous work of Aghili \cite{Aghili_TransRobotics2005}
+	on orthogonal-projection control for the case of constrained robots subject to quadratic inequality
+	constraints pertinent to unilateral contacts and friction cones \cite{Aghili_ICRA2016}.
+	Dietrich et al. \cite{Dietrich_ICRA2016} extended the classical, hierarchy-based null space compliance
+	controller by recovering the passivity, achieved by means of a virtual energy tank filled by the
+	dissipated energy \cite{Dietrich_ICRA2016}.
+	This concept of passivity was also used by Henze et al. \cite{Henze_IJRR2016}, which used for balancing
+	control of torque-controlled humanoid robots by extending the work of Ott et al. \cite{Ott_Humanoids2011}.
+	Then, this balancing control was later combined with hierarchical multitask control by them
+	\cite{Henze_ICRA2016}.
+	Hereid et al. \cite{Hereid_ICRA2016} presented a methodology for a fast and reliable generation of efficient
+	multi-contact robot walking through the framework of \emph{Hybrid Zero Dynamics} (HZD), which was
+	experimentally validated on the DURUS humanoid robot \cite{Hereid_ICRA2016}.
+	Lee et al. \cite{LeeJ_ICRA2016} proposed a controller based on force-level operational-space control
+	framework, which computes joint torques for the required forces of prioritized multiple tasks by
+	incorporating adaptive sliding-mode and online dynamics estimation.
+	Finally, Posa et al. \cite{Posa_ICRA2016} presented an approach for the synthesis and stabilization of
+	complex trajectories for both fully-actuated and underactuated robots subject to contact constraints,
+	providing extensions to the Direct Collocation Trajectory Optimization algorithm proposed by Hargraves
+	and Paris \cite{Hargraves_GuidControlDyn1987} and to the classical LQR stabilization technique.
 	
 	A timeline of the works presented here is shown in Table~\ref{tab:Timeline}.
 	

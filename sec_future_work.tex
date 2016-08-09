@@ -1,0 +1,94 @@
+\section{Future Work}
+	\label{sec:future_work}
+	
+	Some of the recent works on multi-task whole-body multi-contact control have recognized weaknesses
+	that have to be overcome by future research efforts.
+	Some relevant ones are mentioned in the following:
+	%
+	\begin{itemize}
+					
+		\item \emph{Contact behavior}.
+					It is advisable for future work to include the implementation of extreme contact behaviors,
+					such as those that would exploit point and edge contacts to maneuver with the environment,
+					instead of relying on planar surfaces.
+					Also, it would be interesting to analyze contact singularities \cite{Sentis_TransRobotics2010}.
+					
+		\item \emph{Wrench measurement}.
+					It is required that the humanoid robots have the capability of simultaneously measuring forces
+					and	torques (i.e., wrenches) at any possible contact location.
+					This is not possible with conventional torque-controlled manipulators and requires whole-body
+					distributed force and tactil sensing \cite{Nori_FrontRobAI2015}.
+					Also, it is worth to consider that, for future robot skin, composed of thousands or millions
+					of sensors, it would be extremely challenging and time consuming to perform a full spatial
+					calibration \cite{Calandra_Humanoids2015}.
+		
+		\item \emph{State estimation}.
+					Future research efforts will have to focus on improved humanoid state estimation, as the
+					accuracy of the floating base odometry is believed to be a limiting factor in the current
+					implementations	\cite{Hopkins_IJHR2016}.
+					
+		\item \emph{Robustness and adaptation}.
+					Accounting for uncertainties could lead to major improvements in robotics if applied at all
+					levels (i.e. planning, control, estimation and identification).
+					While robust Model Predictive Control (MPC) is already an active research field, applications
+					of robust optimization in robotics are seldom \cite{DelPrete_LAAS2015}.
+					Also, if whole-body control approaches become increasingly robust, new opportunities could
+					arise for optimization-based locomotion planners that incorporate novel task-space and
+					joint-space cost terms and additional constraints \cite{Hopkins_IJHR2016}.
+					
+		\item \emph{Singularities}.
+					Whole-body algorithms that compute joint accelerations based on desired Cartesian accelerations
+					require the inversion of a matrix, which can be singular.
+					Singularities such as this have been a major issue in robotics and one of the main reasons why
+					so many humanoid robots walk with significantly bent knees even though real humans walk with
+					fairly straight	knees.
+					There have been so many different methods for compensating for singularities, such as using
+					damped least squares, but there is still no satisfying solution \cite{Koolen_IJHR2016}.
+					
+		\item \emph{Failure handling}.
+					It is currently interesting to have appropriate methods to handle uncertainty and failure,
+					specifically regarding the position and orientation of the assumed contact points, and also
+					including the application of adaptive control methods for dynamic step recovery
+					\cite{Lengagne_IJRR2013} \cite{Hopkins_IJHR2016}.
+					Also, future applications will require automatic generation of stable behaviors.
+					In addition, controllers should improve performance and efficiency of behaviors through
+					experience \cite{Stephens_PhDThesis2011}.
+					
+		\item \emph{Complex motions}.
+					It is a general goal to gradually increase the complexity of the generated motion:
+					to have the robot making dynamic motion while making and breaking contacts with the rigid
+					(or non-rigid)	environment, e.g. walking with additional support of the hands
+					\cite{Koenemann_IROS2015}.
+					It is to be noted that, despite the various studies on angular momentum in humanoid motions,
+					the issue of how to set the desired angular momentum for more complex motions has not been
+					fully explored \cite{LeeS_AutoRobots2012}.
+					
+		\item \emph{Computational cost}.
+					Several solutions have only been tested in simulation due to the high computational cost of the
+					algorithms involved, as well as due to several bottlenecks (e.g. in planning), which makes it
+					difficult to allow a real-time execution on the real robot \cite{Kudruss_Humanoids2015}.
+					
+		\item \emph{Hardware and system integration}.
+					Not only will humanoid robot controllers need to improve, but the hardware and system integration
+					need to be improved to allow robots capable of real world application \cite{Stephens_PhDThesis2011}.
+	
+	\end{itemize}
+	
+
+	
+	
+
+	
+	
+
+	
+
+	
+
+	
+	
+
+	
+
+	
+	
